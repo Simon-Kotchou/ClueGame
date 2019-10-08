@@ -12,23 +12,23 @@ public class IntBoard {
 	private BoardCell[][] grid;									//A grid representing the game board
 	
 	public IntBoard() {									//default constructor that sets up adjMatrix using calcAdjacencies()
-		calcAdjacencies();
 		grid = fillGrid();
+		calcAdjacencies();
 	}
 	
 	public BoardCell[][] fillGrid() {
-		BoardCell[][] grid = new BoardCell[3][3];
-		for(int i = 0; i < grid.length; i++) {
-			for(int j = 0; j < 3; j++) {
-				grid[i][j] = new BoardCell(i,j);
+		BoardCell[][] temp = new BoardCell[4][4];
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				temp[i][j] = new BoardCell(i,j);
 			}
 		}
-		return grid;
+		return temp;
 	}
 	
 	public void calcAdjacencies() {							//Function that will fill adjMatrix with every boardcell and the boardcells adjacent
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
 				Set<BoardCell> temp = new HashSet<BoardCell>();
 				BoardCell aCell = grid[i][j];
 				if(i - 1 >= 0) {
@@ -54,11 +54,31 @@ public class IntBoard {
 	}
 	
 	public void calcTargets(BoardCell startCell, int pathLength){		//Function that calculates the targets for a move and stores them in set of targets
-		return;
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
+		
+		visited.add(startCell);
+		
+		findTargets(startCell, pathLength);
+	}
+	
+	public void findTargets(BoardCell currentCell, int length) {
+		for(BoardCell adjCell : adjMatrix.get(currentCell)) {
+			if(!visited.contains(adjCell)) {
+				visited.add(adjCell);
+				if(length == 1) {
+					targets.add(adjCell);
+				}
+				else {
+					findTargets(adjCell, length -1);
+				}
+				visited.remove(adjCell);
+			}
+		}
 	}
 	
 	public Set<BoardCell> getTargets(){									//getter for targets
-		return null;
+		return targets;
 	}
 	
 	public BoardCell getCell(int r, int c) {
