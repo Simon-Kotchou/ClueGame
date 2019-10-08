@@ -8,4 +8,5 @@ public class BoardCell {
 		this.row = r;
 		this.col = c;
 	}
+	
 }
