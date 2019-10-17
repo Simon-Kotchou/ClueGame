@@ -5,6 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/*
+*Author: Simon Kotchou 
+*Date: 10/8/2019
+*/
+
 public class IntBoard {
 	private Map<BoardCell, Set<BoardCell>> adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();			//Map that includes every boardcell on grid and a set of adjacent cells
 	private Set<BoardCell> visited;								//set of boardcells that have been visited by a function
@@ -16,7 +21,7 @@ public class IntBoard {
 		calcAdjacencies();
 	}
 	
-	public BoardCell[][] fillGrid() {
+	public BoardCell[][] fillGrid() {						//function that creates a new grid and fills it with corresponding boardcells
 		BoardCell[][] temp = new BoardCell[4][4];
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
@@ -32,7 +37,7 @@ public class IntBoard {
 				Set<BoardCell> temp = new HashSet<BoardCell>();
 				BoardCell aCell = grid[i][j];
 				if(i - 1 >= 0) {
-					temp.add(grid[i-1][j]);
+					temp.add(grid[i-1][j]);			//checks if each side is out of range of array and if not adds to set
 				}
 				if(i + 1 <= 3) {
 					temp.add(grid[i+1][j]);
@@ -44,7 +49,7 @@ public class IntBoard {
 					temp.add(grid[i][j+1]);
 				}
 				
-				adjMatrix.put(aCell, temp);
+				adjMatrix.put(aCell, temp);			//adds pair of cell and adj cells from temp set
 			}
 		}
 	}
@@ -62,15 +67,15 @@ public class IntBoard {
 		findTargets(startCell, pathLength);
 	}
 	
-	public void findTargets(BoardCell currentCell, int length) {
-		for(BoardCell adjCell : adjMatrix.get(currentCell)) {
-			if(!visited.contains(adjCell)) {
-				visited.add(adjCell);
+	public void findTargets(BoardCell currentCell, int length) {			//recursive function
+		for(BoardCell adjCell : adjMatrix.get(currentCell)) {				//for every adjacent cell of the current cell
+			if(!visited.contains(adjCell)) {					//if not visited
+				visited.add(adjCell);						//is now visited
 				if(length == 1) {
-					targets.add(adjCell);
+					targets.add(adjCell);					//base case
 				}
 				else {
-					findTargets(adjCell, length -1);
+					findTargets(adjCell, length -1);				//recursive call
 				}
 				visited.remove(adjCell);
 			}
@@ -81,7 +86,7 @@ public class IntBoard {
 		return targets;
 	}
 	
-	public BoardCell getCell(int r, int c) {
+	public BoardCell getCell(int r, int c) {				//getter for each cell on grid
 		return grid[r][c];
 	}
 	
