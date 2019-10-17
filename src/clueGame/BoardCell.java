@@ -1,4 +1,4 @@
-package experiment;
+package clueGame;
 
 public class BoardCell {
 	private int row;
@@ -21,4 +21,13 @@ public class BoardCell {
 	public boolean isDoorway() {
 		return false;
 	}
+	
+	public char getInitial() {
+		return initial;
+	}
+	
+	public DoorDirection getDoorDirection() {
+		return null;
+	}
+	
 }
