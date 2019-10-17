@@ -1,17 +1,19 @@
 package clueGame;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class Board {
 	public static final int MAX_BOARD_SIZE = 50;
-	private int numRows;
-	private int numColumns;
+	private int numRows = 25;
+	private int numColumns = 25;
 	
-	private BoardCell[][] board;
-	Map<Character,String> legend;
-	Map<BoardCell, Set<BoardCell>> adjMatrix;
-	Set<BoardCell> targets;
+	private BoardCell[][] board= new BoardCell[numRows][numColumns];
+	Map<Character,String> legend = new HashMap<Character,String>();
+	Map<BoardCell, Set<BoardCell>> adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
+	Set<BoardCell> targets = new HashSet<BoardCell>();
 	
 	String boardConfigFile;
 	String roomConfigFile;
@@ -19,7 +21,7 @@ public class Board {
 	private static Board theInstance = new Board();
 	
 	private Board() {
-		
+
 	}
 	
 	public static Board getInstance() {
@@ -27,6 +29,11 @@ public class Board {
 	}
 	
 	public void initialize() {
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
+				board[i][j] = new BoardCell(i,j);
+			}
+		}
 		return;
 	}
 	
