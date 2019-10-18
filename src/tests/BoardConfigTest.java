@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import clueGame.Board;
 import clueGame.DoorDirection;
+import clueGame.BoardCell;
 
 public class BoardConfigTest {
 	
@@ -16,12 +17,12 @@ public class BoardConfigTest {
 	public static final int LEGEND_SIZE = 11;						//constants that are used to assert tests later
 	public static final int NUM_ROWS = 22;
 	public static final int NUM_COLUMNS = 21;
-	public static final int NUM_DOORWAYS = 15;
+	public static final int NUM_DOORWAYS = 16;
 
 	@BeforeClass
 	public static void initObj() {									//beforeclass method that sets up the board and loads the config files
 		board = Board.getInstance();
-		board.setConfigFiles("GameBoard.csv", "ClueRooms.txt");		
+		board.setConfigFiles("data/GameBoard.csv", "data/ClueRooms.txt");		
 		board.initialize();
 	}
 	
@@ -35,7 +36,7 @@ public class BoardConfigTest {
 		assertFalse(board.getLegend().isEmpty());									//tests if legend is empty
 		assertEquals(board.getLegend().get('X'), "Closet");
 		assertTrue(board.getLegend().containsKey('D'));									//then tests if the legend contains the correct information from config files
-		assertEquals(board.getLegend().get('R'), "Billiard Room");
+		assertEquals(board.getLegend().get('R'), "Billiard room");
 		assertTrue(board.getLegend().containsKey('C'));
 		assertEquals(board.getLegend().get('W'), "Walkway");
 	}
@@ -59,6 +60,7 @@ public class BoardConfigTest {
 		assertFalse(board.getCellAt(14, 6).isDoorway());
 		assertFalse(board.getCellAt(8, 10).isDoorway());
 		assertFalse(board.getCellAt(12, 20).isDoorway());
+		assertTrue(board.getCellAt(17, 0).isDoorway());
 	}
 	
 	@Test

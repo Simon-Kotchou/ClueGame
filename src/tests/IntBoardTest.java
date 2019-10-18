@@ -7,16 +7,16 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-import experiment.BoardCell;
 import experiment.IntBoard;
+import experiment.BoardCell;
 
 class IntBoardTest {
 	
-	private IntBoard board;
-
+	IntBoard board = new IntBoard();
+	
 	@Before
 	public void beforeAll() {
-		board = new IntBoard();               //sets up a new IntBoard to be used in tests
+		board = new IntBoard();
 	}
 	
 	/*
@@ -139,3 +139,4 @@ class IntBoardTest {
 		assertEquals(6, targets.size());
 	}
 }
+
