@@ -159,13 +159,13 @@ public class Board {
 		return;
 	}
 	
-	public void calcTargets(BoardCell cell, int pathLength) {				//calculates the places the piece can move
+	public void calcTargets(int r, int c, int pathLength) {				//calculates the places the piece can move
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		
-		visited.add(cell);
+		visited.add(this.getCellAt(r, c));
 		
-		findTargets(cell, pathLength);
+		findTargets(this.getCellAt(r, c), pathLength);
 		return;
 	}
 	

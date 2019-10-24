@@ -25,7 +25,7 @@ public class BoardCell {
 	}
 	
 	public boolean isRoom() {									//checks if the boardcell is a room cell
-		if(this.initial != 'W') {
+		if(this.initial != 'W' && this.initial != 'X' && !this.isDoorway()) {
 			return true;
 		}
 		return false;
