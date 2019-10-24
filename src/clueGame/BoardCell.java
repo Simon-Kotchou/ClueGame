@@ -32,7 +32,7 @@ public class BoardCell {
 	}
 	
 	public boolean isDoorway() {								//checks if the boardcell is a doorway
-		if(this.doorDirection != null) {
+		if(this.doorDirection != DoorDirection.NONE) {
 			return true;
 		}
 		return false;

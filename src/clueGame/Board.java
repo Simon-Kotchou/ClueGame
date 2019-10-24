@@ -121,6 +121,9 @@ public class Board {
 								board[i][j].setDoorDirection(DoorDirection.RIGHT);
 							}
 						}
+						else {
+							board[i][j].setDoorDirection(DoorDirection.NONE);
+						}
 					}
 				}
 			}
@@ -189,8 +192,8 @@ public class Board {
 		return board[r][c];
 	}
 	
-	public Set<BoardCell> getAdjList(BoardCell aCell){								//getter for adjMatrix
-		return adjMatrix.get(aCell);
+	public Set<BoardCell> getAdjList(int r, int c){								//getter for adjMatrix
+		return adjMatrix.get(this.getCellAt(r, c));
 	}
 	
 	public int getNumRows() {										//getter for numRows
