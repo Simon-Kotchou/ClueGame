@@ -38,7 +38,7 @@ public class BoardAdjTargetTests {
 		assertTrue(testList.contains(board.getCellAt(16, 4)));
 		assertTrue(testList.contains(board.getCellAt(15, 3)));
 		
-		testList = board.getAdjList(13, 0);				//Testing cell on left edge of board
+		testList = board.getAdjList(13, 0);				//Testing cell on left edge of board also is next to room cell
 		assertEquals(1, testList.size());
 		assertTrue(testList.contains(board.getCellAt(14, 0)));
 		
@@ -57,7 +57,7 @@ public class BoardAdjTargetTests {
 		assertEquals(1, testList.size());
 		assertTrue(testList.contains(board.getCellAt(20, 12)));
 		
-		testList = board.getAdjList(9, 20);				//Testing cell at right edge of board
+		testList = board.getAdjList(9, 20);				//Testing cell at right edge of board also is next to room cell
 		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCellAt(8, 20)));
 		assertTrue(testList.contains(board.getCellAt(9, 19)));

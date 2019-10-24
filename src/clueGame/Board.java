@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class Board {
 		return;
 	}
 	
-	public void loadBoardConfig() throws BadConfigFormatException{				//loads board configuration from csv file
+	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{				//loads board configuration from csv file
 		File file = new File(boardConfigFile);
 		try(Scanner read = new Scanner(file)){
 			String tempLine;
@@ -120,6 +121,9 @@ public class Board {
 							else if(rowFields.get(i)[j].charAt(1) == 'R') {
 								board[i][j].setDoorDirection(DoorDirection.RIGHT);
 							}
+							else {
+								board[i][j].setDoorDirection(DoorDirection.NONE);
+							}
 						}
 						else {
 							board[i][j].setDoorDirection(DoorDirection.NONE);
@@ -140,17 +144,81 @@ public class Board {
 			for(int j = 0; j < numColumns; j++) {
 				Set<BoardCell> temp = new HashSet<BoardCell>();
 				BoardCell aCell = board[i][j];
-				if(i - 1 >= 0) {
-					temp.add(board[i-1][j]);			//checks if each side is out of range of array and if not adds to set
-				}
-				if(i + 1 <= 3) {
-					temp.add(board[i+1][j]);
-				}
-				if(j - 1 >= 0) {
-					temp.add(board[i][j-1]);
-				}
-				if(j + 1 <= 3) {
-					temp.add(board[i][j+1]);
+				if(!aCell.isRoom() ) {
+					if(aCell.isDoorway()) {
+						switch(aCell.getDoorDirection()) {
+						case LEFT:
+							temp.add(board[i][j-1]);
+							break;
+						case RIGHT:
+							temp.add(board[i][j+1]);
+							break;
+						case UP:
+							temp.add(board[i-1][j]);
+							break;
+						case DOWN:
+							temp.add(board[i+1][j]);
+							break;
+						}
+					}
+					else {
+						if(i - 1 >= 0) {
+							if(!board[i-1][j].isRoom()) {
+								if(!board[i-1][j].isDoorway()) {
+									if(board[i-1][j].getInitial() != 'X') {
+										temp.add(board[i-1][j]);
+									}
+								}
+								else {
+									if(board[i-1][j].getDoorDirection() == DoorDirection.DOWN) {
+										temp.add(board[i-1][j]);
+									}
+								}
+							}
+						}
+						if(i + 1 < numRows) {
+							if(!board[i+1][j].isRoom()) {
+								if(!board[i+1][j].isDoorway()) {
+									if(board[i+1][j].getInitial() != 'X') {
+										temp.add(board[i+1][j]);
+									}
+								}
+								else {
+									if(board[i+1][j].getDoorDirection() == DoorDirection.UP) {
+										temp.add(board[i+1][j]);
+									}
+								}	
+							}
+						}
+						if(j - 1 >= 0) {
+							if(!board[i][j-1].isRoom()) {
+								if(!board[i][j-1].isDoorway()) {
+									if(board[i][j-1].getInitial() != 'X') {
+										temp.add(board[i][j-1]);
+									}
+								}
+								else {
+									if(board[i][j-1].getDoorDirection() == DoorDirection.RIGHT) {
+										temp.add(board[i][j-1]);
+									}
+								}	
+							}
+						}
+						if(j + 1 < numColumns) {
+							if(!board[i][j+1].isRoom()) {
+								if(!board[i][j+1].isDoorway()) {
+									if(board[i][j+1].getInitial() != 'X') {
+										temp.add(board[i][j+1]);
+									}
+								}
+								else {
+									if(board[i][j+1].getDoorDirection() == DoorDirection.LEFT) {
+										temp.add(board[i][j+1]);
+									}
+								}	
+							}
+						}
+					}
 				}
 				
 				adjMatrix.put(aCell, temp);			//adds pair of cell and adj cells from temp set
