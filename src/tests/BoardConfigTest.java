@@ -22,7 +22,7 @@ public class BoardConfigTest {
 	@BeforeClass
 	public static void initObj() {									//beforeclass method that sets up the board and loads the config files
 		board = Board.getInstance();
-		board.setConfigFiles("data/GameBoard.csv", "data/ClueRooms.txt");		
+		board.setConfigFiles("GameBoard.csv", "ClueRooms.txt");		
 		board.initialize();
 	}
 	
@@ -45,7 +45,7 @@ public class BoardConfigTest {
 	public void boardDimensionTest(){											//tests if the rows and column dimensions of the board are correct
 		assertEquals(board.getNumRows(), NUM_ROWS);
 		assertEquals(board.getNumColumns(), NUM_COLUMNS);
-		assertTrue(board.getNumRows()*board.getNumColumns() <= board.MAX_BOARD_SIZE);			//tests if the board size is less than or equal to the max board size
+		assertTrue(board.getNumRows()+board.getNumColumns() <= board.MAX_BOARD_SIZE);			//tests if the board size is less than or equal to the max board size
 	}
 
 	@Test

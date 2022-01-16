@@ -18,7 +18,7 @@ public class BoardAdjTargetTests {
 	public static void setUp() {
 		
 		board = Board.getInstance();														//getting single instance
-		board.setConfigFiles("data/CTest_ClueLayout.csv", "data/CTest_ClueLegend.txt");		//setting config file names
+		board.setConfigFiles("GameBoard.csv", "ClueRooms.txt");		//setting config file names
 		board.initialize();																	//initializing board, legend, and adjMatrix
 	}
 	
@@ -127,7 +127,7 @@ public class BoardAdjTargetTests {
 	public void targetVariousLengthTests() {
 		board.calcTargets(4, 7, 2);									//testing cell with path length of 2
 		Set<BoardCell> testList= board.getTargets();
-		assertEquals(6, testList.size());
+		assertEquals(7, testList.size());
 		
 		assertTrue(testList.contains(board.getCellAt(6, 7)));
 		assertTrue(testList.contains(board.getCellAt(2, 7)));
@@ -135,13 +135,15 @@ public class BoardAdjTargetTests {
 		assertTrue(testList.contains(board.getCellAt(5, 8)));
 		assertTrue(testList.contains(board.getCellAt(3, 6)));
 		assertTrue(testList.contains(board.getCellAt(6, 7)));
+		assertTrue(testList.contains(board.getCellAt(3, 8)));
 		
 		board.calcTargets(13, 12, 3);									//testing cell with path length of 3
 		testList= board.getTargets();
-		assertEquals(10, testList.size());
+		assertEquals(12, testList.size());
 		
 		assertTrue(testList.contains(board.getCellAt(12, 10)));
 		assertTrue(testList.contains(board.getCellAt(13, 11)));
+		assertTrue(testList.contains(board.getCellAt(13, 13)));
 		assertTrue(testList.contains(board.getCellAt(13, 9)));
 		assertTrue(testList.contains(board.getCellAt(14, 10)));
 		assertTrue(testList.contains(board.getCellAt(15,11)));
@@ -150,10 +152,11 @@ public class BoardAdjTargetTests {
 		assertTrue(testList.contains(board.getCellAt(14, 14)));
 		assertTrue(testList.contains(board.getCellAt(12, 14)));
 		assertTrue(testList.contains(board.getCellAt(12, 12)));
+		assertTrue(testList.contains(board.getCellAt(14, 12)));
 		
 		board.calcTargets(8, 0, 5);									//testing cell with path length of 5
 		testList= board.getTargets();
-		assertEquals(5, testList.size());
+		assertEquals(8, testList.size());
 		
 		assertTrue(testList.contains(board.getCellAt(7, 2)));
 		assertTrue(testList.contains(board.getCellAt(7, 4)));
